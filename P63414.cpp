@@ -1,17 +1,26 @@
 #include <iostream>
 #include <vector>
+#include <algorithm>
 using namespace std;
 
 int main() {
-	int n, a;
+	int n;
 	cin >> n;
-	vector<int> A(1001);
+	vector<int> v(n);
 	for (int i = 0; i < n; ++i) {
-		cin >> a;
-		a -= 1000000000;
-		++A[a];
+		cin >> v[i];
+		v[i] -= 1000000000;
 	}
-	for (int i = 0; i < A.size(); ++i) {
-		if (A[i] != 0) cout << i + 1000000000 << " : " << A[i] << endl;
+	sort(v.begin(), v.end());
+	int count = 0;
+	int current = v[0];
+	for (int i = 0; i < n; ++i) {
+		if (v[i] != current) {
+			cout << current + 1000000000 << " : " << count << endl;
+			current = v[i];
+			count = 1;
+		}
+		else ++count;
 	}
+	cout << current + 1000000000 << " : " << count << endl;
 }
